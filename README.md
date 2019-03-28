@@ -27,7 +27,7 @@ $ ./cucumber.py httpd.py > httpd.pickle
 $ ls
 httpd.py httpd.pickle
 ```
-After an exploitative serialisation has been created, it can be used to audit target programs for vulnerabilities, namely those which do not perform adequate input validation. Shown below, is a hypothetical scenareo where an attacker manages to obtain the private TLS key of a Flask web server. The API endpoint `/login` does not provide validation of input data yet at some point invokes `pickle.loads()` on said data. By sending `httpd.pickle` as input, the endpoint will readily transfers control to the malicious script. The attacker may then connect over port 8000 to read arbitrary files on the target machine, including private ones.
+After an exploitative serialisation has been created, it can be used to audit target programs for vulnerabilities, namely those which do not perform adequate input validation. Shown below, is a hypothetical scenareo where an attacker manages to obtain the private TLS key of a Flask web server. The API endpoint `/login` does not provide validation of input data yet at some point invokes `pickle.loads()` on said data. By sending `httpd.pickle` as input, the endpoint will readily transfer control to the malicious script. The attacker may then connect over port 8000 to read arbitrary files on the target machine, including private ones.
 
 ```
 $ curl https://api.alice.com/robots.txt
