@@ -4,7 +4,7 @@
 cucumber.py, ACE via Python pickle unpacking. Written by
 Oelin <me.oelin@gmail.com>.
 
-### Usage
+### Command
 
 ```
 cucumber.py [path]
@@ -15,7 +15,7 @@ cucumber.py [path]
 This script exploits features of Python's popular serialisation library, pickle in such a way to cause the execution of arbitrary code by programs at run-time. Simply specify the path to a file containing Python source code. An exploitative pickle serialisation will then be written to stdout (ouput). If another Python program attempts to unpack this
 serialisation, the original code given will be executed. Note that this script should only be used for demonstratory purposes. It is not a security hacking tool!
 
-### Examples
+### Usage
 
 In the following example, a script to start a HTTP web server on port 8000 is crafted into a pickle serialisation. When subject to `pickle.loads()` (i.e by a vulnerable program), the script will be executed. The script can also be found in this repository at
 `./scripts/httpd.py`.
@@ -27,7 +27,7 @@ $ ./cucumber.py httpd.py > httpd.pickle
 $ ls
 httpd.py httpd.pickle
 ```
-After the exploitative serialisation has been created, it can be used to test target programs for vulnerabilities, namely those which do not perform adequate input validation. Shown below, is a hypothetical scenareo where an attacker manages to obtain the private TLS key of a Flask web server. The API endpoint `/login` does not provide validation of input data yet at some point invokes `pickle.loads()` on said data. By sending `httpd.pickle` as input, the endpoint willingly transfers control to the malicious script which will start a second web server on port 8000. The attacker may then connect over port 8000 to read arbitrary files, including usually private ones.
+After an exploitative serialisation has been created, it can be used to audit target programs for vulnerabilities, namely those which do not perform adequate input validation. Shown below, is a hypothetical scenareo where an attacker manages to obtain the private TLS key of a Flask web server. The API endpoint `/login` does not provide validation of input data yet at some point invokes `pickle.loads()` on said data. By sending `httpd.pickle` as input, the endpoint willingly transfers control to the malicious script which will start a second web server on port 8000. The attacker may then connect over port 8000 to read arbitrary files, including usually private ones.
 
 ```
 $ curl https://api.alice.com/robots.txt
