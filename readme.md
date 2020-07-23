@@ -1,2 +1,2 @@
 # pickle-rce
-This script exploits python's pickle library to perform RCE. 
+PoC showing how python's pickle library to can be used for RCE. 
